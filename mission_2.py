@@ -59,6 +59,7 @@ im7 = pygame.image.load('./button_continue.png')
 continue_btn = buttons.Button(320, 490, im6, 0.5)
 ##mission2
 ##intro 
+intro_dialog= "Your Mission One has completed and town folks are discussig our work positively so far ...  but don't get distraced, we have another mission for  to complete"
 prev_text1="As the newly appointed mayor of Greenerie, you're faced with a monumental task: to restore the once-pristine River Verda, now choked with pollution from industrial waste. The river, once a lifeline for the community, has become a symbol of environmental degradation and neglect."
 prev_text3=f'So now we have allocated budgets to  public department and environment department we need to visit either of them to start our river cleanup program and ask for their help'
 prev_text2="Your mission begins with rallying the community and collaborating with environmental agencies to launch a massive cleanup effort. Volunteers, activists, and concerned citizens join forces as cleanup crews, confronting the grim reality of toxic chemicals, dead fish, and the stench of decay. Despite the challenges, you press on, implementing measures to prevent further contamination and inspiring hope amidst resistance from powerful corporations and bureaucratic hurdles."
@@ -186,11 +187,23 @@ reply_env6 = "Our workers inspected the wastes in water, and since the situation
 ## if 50
 ## complete task dialog 
 reply_pub2 = "Thank You , please let us discuss with environment department how we should distribute the money once done we'll start the cleanup programm instantly"
-
+BLACK = (0, 0, 0)
+GREEN = (0, 200, 0)
+DARK_GREEN = (0, 128, 0)
+WHITE = (250, 250, 250)
+GOLDEN = (128,128,0)
+GREY = (169, 169, 169)
+font_path = "Adventure.ttf"
+# Define fonts
+font = pygame.font.SysFont(font_path, 36)
+font_size=36
 ## if 70 -> rely_con10
 ## complete task
 ## e2 
 ## e3 
+assistent = pygame.image.load('./assistent.png')
+assistent = pygame.transform.scale(assistent, (200, 200))
+
 START = 0
 M2 =0 
 running=True
@@ -202,261 +215,39 @@ flag_5=False
 flag_6 = False
 start_time = pygame.time.get_ticks()
 while running:
-  if M2==1:
-    db_width=800
-    db_height=250
-    if pygame.time.get_ticks() - start_time < 10000:
-      screen.blit(m2i1, (0, 0))
-      screen.blit(main.assistent,(0,0))
-      if not flag_1:
-        main.draw_dialog_box(screen,125,75, db_width, db_height,main.split_text(prev_text1,800),10)
-        flag_1=True
-      else:
-        main.draw_dialog_box(screen,125,75, db_width, db_height,main.split_text(prev_text1,800))
-    else:
-        screen.blit(m2i2, (0, 0))
-        screen.blit(main.assistent,(0,0))
-        main.top_row()
-        db_height=500
-        if not flag_2:
-          main.draw_dialog_box(screen,125,75, db_width, db_height,main.split_text(prev_text2,800),10)
-          flag_2=True
-        else:
-          main.draw_dialog_box(screen,125,75, db_width, db_height,main.split_text(prev_text2,800))
-          m2_btn.draw(screen)
-  elif M2==2:
-    if pygame.time.get_ticks() - start_time < 5000:
-      screen.blit(main.m1p1, (0, 0))
-      if flag_1:                
-        main.draw_dialog_box(screen,125,75,500,200,main.split_text(welcome_pub,500),10)
-        flag_1=False
-      else:
-        main.draw_dialog_box(screen,125,75,500,200,main.split_text(welcome_pub,500))
-    else: 
-      screen.blit(main.m1p1, (0, 0))
-      screen.blit(main.assistent,(0,0))
-      if flag_2:                    
-        main.draw_dialog_box(screen,125,75,500,200,main.split_text(ask_pub0,500),10)
-        flag_2=False
-      else:
-        main.draw_dialog_box(screen,125,75,500,200,main.split_text(ask_pub0,500))
-        next_btn.draw(screen)
-  elif M2==3:#(p1c2)
-    screen.blit(main.m1p2, (0, 0))
-    if not flag_1:
-      main.draw_dialog_box(screen,125,75,500,200,main.split_text(reply_pub0,500),10)
-      flag_1=True
-    else:
-      main.draw_dialog_box(screen,125,75,500,200,main.split_text(reply_pub0,500))
-      visit_env.draw(screen)
-      con_sev.draw(screen)
-  elif M2==4:#(if visit_env after public dept in p1c1)
-      if pygame.time.get_ticks() - start_time < 5000:
-        screen.blit(main.m1e1, (0, 0))
-        if not flag_3:
-          main.draw_dialog_box(screen,125,75,400,200,main.split_text(welcome_env,400),20)
-          flag_3=True
-        else:
-          main.draw_dialog_box(screen,125,75,400,200,main.split_text(welcome_env,400))
-      else:
-        screen.blit(main.m1e2, (0, 0))
-        screen.blit(main.assistent,(0,0))
-        if flag_4:
-          main.draw_dialog_box(screen,125,75,300,100,main.split_text(ask_env0,300),10)
-          flag_4=False
-        else:
-          main.draw_dialog_box(screen,125,75,300,100,main.split_text(ask_env0,300))
-          next_btn2.draw(screen)
-  elif M2==5:
-    screen.blit(main.m1e2, (0, 0))
-    if  flag_4:
-      main.draw_dialog_box(screen,125,75,300,100,main.split_text(reply_env0,300),10)
-      flag_4=False
-    else:
-      main.draw_dialog_box(screen,125,75,300,100,main.split_text(reply_env0,300))
-      next_btn3.draw(screen)
-  elif M2==6:#(next-btn3)
-    if pygame.time.get_ticks() - start_time < 10000:
-      screen.blit(main.m1e2,(0,0))
-      screen.blit(main.assistent,(0,0))
-      if not flag_5:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(allot_budget1,400),10)
-        flag_5=True
-      else:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(allot_budget1,400))
-    else:
-      main.draw_dialog_box(screen,125,75,300,100,[f'Current Budget:{main.coins}'])
-      main.top_row()
-      
-  elif M2==7: #(40 chosen)
-    screen.blit(main.m1e2,(0,0))
-    if not flag_6:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env1,400),10)
-      flag_6= True
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env1,400))
-      con_sev.draw(screen)
-  elif M2==8:#(50 chosen)
-    screen.blit(main.m1e2,(0,0))
-    if pygame.time.get_ticks() - start_time < 5000:
-      if not flag_6:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env2,400),10)
-        flag_6=True
-      else:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env2,400))
-    else:
-      if flag_5:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env3,400),10)
-        flag_5=False
-      else:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env3,400))
-        next_btn4.draw(screen)
-  elif M2 == 9: #(60 chosen)
-    screen.blit(main.m1e2,(0,0))
-    if not flag_6:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env4,400),10)
-      flag_6=True
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env4,400))
-      next_btn4.draw(screen)
-  elif M2==10: #(20 in contracted service)
-      screen.blit(main.m1e1,(0,0))
-      screen.blit(main.assistent,(0,0))
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(visit_con,400))
-      con_sev.draw(screen)
-  elif M2==11 #(contracted service department)
-    if pygame.time.get_ticks() - start_time < 5000:
-      if  flag_6:
-        screen.blit(main.m1c1,(0,0))
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(welcome_con,400),10)
-        flag_6=False
-      else:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(welcome_con,400))
-    elif pygame.time.get_ticks() - start_time < 10000:
-        if not flag_6:
-          main.draw_dialog_box(screen,125,75,400,200,main.split_text(ask_con,400),10)
-          flag_6=True
-        else:
-          main.draw_dialog_box(screen,125,75,400,200,main.split_text(ask_con,400))
-    elif pygame.time.get_ticks() - start_time<15000:
-      if flag_5:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con,400),10)
-        flag_5=False
-      else:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con,400))
-        next_btn5.draw(screen)
-  elif M2==12:#(contracted service negotiate)
-    if pygame.time.get_ticks() - start_time < 5000:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(negotiate_con,400),10)
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,[f'Current Budget:{main.coins}'])
-      main.top_row()
-      (main.m1c1).draw(screen)
-      (main.m1c2).draw(screen)
-      main.m1c3.draw(screen)
-  elif M2==13: #chosen 10 
-    if pygame.time.get_ticks() - start_time < 5000:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con1,400),10)
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con3,400))
-      next_btn6.draw(screen)
-  elif M2==14: #chosen 20 
-    if pygame.time.get_ticks() - start_time < 5000:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con2,400),10)
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con3,400))
-      next_btn6.draw(screen)
-  elif M2==15: #chosen 30
-    if pygame.time.get_ticks() - start_time < 5000:
-      if not flag_5:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con3,400),10)
-        flag_5=True
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con3,400))
-      next_btn6.draw(screen)
-  elif M2 ==16: # takinga direct visit to contract service providers first M11 then this
-    if pygame.time.get_ticks() - start_time < 5000:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(negotiate_con,400),10)
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,[f'Current Budget:{main.coins}'])
-      main.top_row()
-      main.m1c2.draw(screen)
-      main.m1c3.draw(screen)
-      m2c1.draw(screen)
-  elif M2 == 17 : # chosen 30
-    if pygame.time.get_ticks() - start_time < 5000:
-      if not flag_3:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con8,400),10)
-      else:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con8,400),10)
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con8,400))
-      next_btn7.draw(screen)
-  elif M2 ==18: #chosen 40
-    if pygame.time.get_ticks() - start_time < 5000:
-      if not flag_3:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env5,400),10)
-        flag_3 = True
-      else:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env5,400))
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con3,400))
-      next_btn7.draw(screen)
-  elif  M2 ==19: #chosen 60
-      if pygame.time.get_ticks() - start_time < 5000:
-        if not flag_3:
-          main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env5,400),10)
-          flag_3 = True
-        else:
-          main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env5,400))
-      else:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env4,400))
-        next_btn7.draw(screen)
-  ## m1c3 same cases increase one star in that ig
-  elif M2 ==20:  # p2e1 
-      screen.blit(main.m1i2,(0,0))    
-      screen.blit(main.assistent,(0,0))
-      if pygame.time.get_ticks()-start_time < 5000:
-        if not flag_1:
-          main.draw_dialog_box(screen,125,75,400,200,main.split_text(prev_text3,400),10)
-          flag_1=True
-        else:
-          main.draw_dialog_box(screen,125,75,400,200,main.split_text(prev_text3,400))
-      else:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(prev_text3,400))
-        visit_env.draw(screen)
-        m2_btn.draw(screen)
-  elif M2 == 21 : #take a visit to public department  first M2 then this
-    if pygame.time.get_ticks() - start_time < 5000:
-      if not flag_2: 
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_pub1,400),10)
-        flag_2=True
-      else : 
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_pub1,400))
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(ask_pub0,400))
-      visit_env.draw(screen)
-      con_sev.draw(screen)
-      continue_btn.draw(screen)
-  elif M2 ==22 : # welcomea and ask for help
-    if pygame.time.get_ticks() - start_time < 5000: 
-      if flag_2:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env7,400),10)
-        flag_2 = False
-      else:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env7,400))
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env7,400))
-      con_sev.draw(screen)
-      continue_btn.draw(screen)
-  elif M2==23: # pub->env->continue
-    if pygame.time.get_ticks() - start_time < 8000:
-      if not flag_2:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env5,400),10)
-        flag_2 = True
-      else:
-        main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_env5,400),10)
-    else:
-      main.draw_dialog_box(screen,125,75,400,200,main.split_text(reply_con3,400))
-  elif M2 == 24: # pub->env->con welcome con and ask for help  then selected is 20
-    
+  if M2==0:
+    screen.blit(main.background_1, (0, 0))
+    overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
+    overlay.fill((0, 0, 0, 80))
+    screen.blit(overlay, (0, 0))
+    main.draw_text("Air Quality (AQ): ", font, GREEN, 50, 280)
+    for i in range(5):
+        pygame.draw.circle(screen, GREY, (300 + i * 40, 300), 10)
+        pygame.draw.circle(screen, BLACK, (300 + i * 40, 300), 10, 2)
+    main.draw_text("Water Quality (WQ): ", font, GREEN, 50, 330)
+    for i in range(5):
+        pygame.draw.circle(screen, GREY, (350 + i * 40, 350), 10)
+        pygame.draw.circle(screen, BLACK, (350 + i * 40, 350), 10, 2)
+    main.draw_text("Waste Management (WM): ", font, GREEN, 50, 380)
+    for i in range(5):
+        pygame.draw.circle(screen, GREY, (435 + i * 40, 400), 10)
+        pygame.draw.circle(screen, BLACK, (435 + i * 40, 400), 10, 2)
+    main.draw_text(f"Coins: {coins}Cr", font, GOLDEN, 50, 450)
+    db_width = 800
+    db_height = 200
+    screen.blit(assistent, (0,0))
+    main.draw_dialog_box(screen,125,75, db_width, db_height, main.split_text(intro_dialog,800))
+    back_btn.draw(screen)
+    enter_btn.draw(screen)
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+        running = False
+        pygame.quit()
+        sys.exit()
+    elif event.type == pygame.MOUSEBUTTONDOWN:
+        mouse_pos = pygame.mouse.get_pos()
+        if enter_btn.draw(screen):
+            M2=1
+    start_time=pygame.time.get_ticks()
+  pygame.display.flip()
+pygame.quit()
