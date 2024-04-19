@@ -235,7 +235,7 @@ def main():
                         costs=15+costs2
                         coins=coins-30-coins1
                     elif utils.e3_btn.draw(screen):
-                        utils.c8=2              
+                        M1=12             
                         costs= 20+costs2
                         utils1.ENV1=20
                         coins= coins-40-coins1
